@@ -8,7 +8,7 @@ run() {
 	rm -f recv$1.dat* out$1.dat* recv.dat out.dat
 	ct="celltype=$1"
 	echo "run with -> $ct $2 <-"
-	nrniv -nobanner -c "$ct" -c "{$2}" init.hoc > /dev/null
+	nrniv -nobanner -nogui -c "$ct" -c "{$2}" init.hoc > /dev/null
 	./sortrecv recv.dat recv$1.dat.sorted
 	cmp recv$1.dat.sorted recv$1.std
 	if [ $? -ne 0 ]; then
@@ -21,7 +21,7 @@ run() {
 	fi
 	rm -f recv.dat out.dat
 	echo "run with mpi -> $ct $2 <-"
-	mpiexec ${MPIEXEC_OVERSUBSCRIBE---oversubscribe} -n 4 nrniv -mpi -nobanner -c "$ct" -c "{$2}" init.hoc > /dev/null
+	mpiexec ${MPIEXEC_OVERSUBSCRIBE---oversubscribe} -n 4 nrniv -mpi -nobanner -nogui -c "$ct" -c "{$2}" init.hoc > /dev/null
 	./sortrecv recv.dat recv$1.dat.sorted.mpi
 	cmp recv$1.dat.sorted.mpi recv$1.dat.sorted
 	if [ $? -ne 0 ]; then
