@@ -31,7 +31,9 @@ export have_coreneuron
 #
 
 
-scripts="${CURRENT_DIR}/fast/Readme"
+scripts=(
+  "${CURRENT_DIR}/fast/Readme" "${CURRENT_DIR}/nrniv/Parallel/recv/test.sh"
+)
 
 if [[ "$have_nrnpython" = yes ]] && [[ "$have_nrnmpi" = yes ]] ; then
   scripts="${CURRENT_DIR}/nrniv/Parallel/dotests.sh $scripts"
@@ -69,7 +71,7 @@ Running cmpdatfile in $1"
   return $?
 }
 
-for i in $scripts ; do
+for i in ${scripts[@]} ; do
     runscript "$i"
     if [ $? -ne 0 ] ; then
         err=1
