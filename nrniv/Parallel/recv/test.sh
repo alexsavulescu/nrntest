@@ -21,7 +21,7 @@ run() {
 	fi
 	rm -f recv.dat out.dat
 	echo "run with mpi -> $ct $2 <-"
-	mpiexec -n 4 nrniv -mpi -nobanner -c "$ct" -c "{$2}" init.hoc > /dev/null
+	mpiexec ${MPIEXEC_OVERSUBSCRIBE---oversubscribe} -n 4 nrniv -mpi -nobanner -c "$ct" -c "{$2}" init.hoc > /dev/null
 	./sortrecv recv.dat recv$1.dat.sorted.mpi
 	cmp recv$1.dat.sorted.mpi recv$1.dat.sorted
 	if [ $? -ne 0 ]; then
