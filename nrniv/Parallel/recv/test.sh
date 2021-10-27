@@ -1,5 +1,7 @@
 #!/bin/bash
 
+nrnivmodl
+
 ERR=0
 
 run() {
